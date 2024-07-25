@@ -20,9 +20,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import brew from './brewrros.jpeg';
 import MenuCard from './MenuCard';
 import OrdersPage from './OrdersPage';
+import OfferScreen from './OffersScreen';
 import { CategoryProvider } from './CategoryContext';
-
-
 
 //getting started.................
 function GettingStarted({ navigation }) {
@@ -88,20 +87,16 @@ function HomeScreen() {
   );
 }
 
-function CategoriesScreen() {
+function CartScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Categories Screen</Text>
+      <Text>Cart Screen</Text>
     </View>
   );
 }
 
 function OffersScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Offers Screen</Text>
-    </View>
-  );
+  return <OfferScreen />;
 }
 
 function OrdersScreen() {
@@ -220,13 +215,14 @@ function MainTabs() {
           ),
         }}
       />
+
       <Tab.Screen
-        name="Categories"
-        component={CategoriesScreen}
+        name="Offers"
+        component={OffersScreen}
         options={{
-          tabBarLabel: 'Categories',
+          tabBarLabel: 'Offers',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="apps" color="#F0DAAE" size={26} />
+            <MaterialCommunityIcons name="gift" color="#F0DAAE" size={26} />
           ),
         }}
       />
@@ -244,13 +240,14 @@ function MainTabs() {
           ),
         }}
       />
+
       <Tab.Screen
-        name="Offers"
-        component={OffersScreen}
+        name="Cart"
+        component={CartScreen}
         options={{
-          tabBarLabel: 'Offers',
+          tabBarLabel: 'Cart',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="gift" color="#F0DAAE" size={26} />
+            <MaterialCommunityIcons name="cart" color="#F0DAAE" size={26} />
           ),
         }}
       />
@@ -321,14 +318,14 @@ function AuthStackNavigator() {
 export default function App() {
   return (
     <CategoryProvider>
-    <PaperProvider>
-      <NavigationContainer>
-        <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-          <AuthStack.Screen name="Auth" component={AuthStackNavigator} />
-          <AuthStack.Screen name="Main" component={MainDrawer} />
-        </AuthStack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+      <PaperProvider>
+        <NavigationContainer>
+          <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+            <AuthStack.Screen name="Auth" component={AuthStackNavigator} />
+            <AuthStack.Screen name="Main" component={MainDrawer} />
+          </AuthStack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </CategoryProvider>
   );
 }
