@@ -10,7 +10,9 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,9 +23,13 @@ import brew from './brewrros.jpeg';
 import MenuCard from './MenuCard';
 import OrdersPage from './OrdersPage';
 import OfferScreen from './OffersScreen';
+import Profiles from './profiles';
+import CartPage from './CartPage';
+import { CartProvider } from './CartPage';
 import { CategoryProvider } from './CategoryContext';
+import memo4 from './memo4.png';
 
-//getting started.................
+// Getting started screen
 function GettingStarted({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
@@ -54,8 +60,8 @@ function GettingStarted({ navigation }) {
   );
 }
 
-//all screenss baeebeyy .......
-function HomeScreen() {
+// Home screen
+function HomeScreen({ navigation }) {
   const images = [
     'https://wallpaperaccess.com/full/1320593.jpg',
     'https://lh7-us.googleusercontent.com/5IFXlx7Geaw_bikeVDsFUgq0k4B5MAHZgqRhpIdhQug9691wOfLIwXAkirY_staWqRxzT1GGSGiv30xtGx9XoJufEkeytZWaqRghZD29qNSoM60tLsnbZvm6-5Tuza05Qmu5bJBmY0_-Owiadvh9WMI',
@@ -65,34 +71,62 @@ function HomeScreen() {
   ];
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F0DAAE' }}>
-      <FlatList
-        data={images}
-        renderItem={({ item }) => (
-          <View style={{ width: 350, height: 220, margin: 14 }}>
+    <ScrollView>
+      <View style={{ flex: 1, backgroundColor: '#F0DAAE' }}>
+        <FlatList
+          data={images}
+          renderItem={({ item }) => (
+            <View style={{ width: 350, height: 220, margin: 14 }}>
+              <Image
+                source={{ uri: item }}
+                style={{ width: 370, height: 230, borderRadius: 10 }}
+              />
+            </View>
+          )}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+        />
+        <ScrollView contentContainerStyle={styles.menuContainer}>
+          <MenuCard />
+        </ScrollView>
+        <View>
+        <Text
+          style={{
+            fontSize: 24,
+            color: '#895D2B',
+            fontWeight: 'bold',
+            marginHorizontal: 7,
+            marginBottom:5,
+            alignSelf: 'center',
+            marginTop: 0,
+          }}>
+          {' '}
+          BARISTA BRINGS YOU:{' '}
+        </Text>
+        <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Offers')}>
             <Image
-              source={{ uri: item }}
-              style={{ width: 370, height: 230, borderRadius: 10 }}
+              source={memo4}
+              style={{
+                width: 370,
+                height: 270,
+                marginBottom:5,
+                paddingTop: 5,
+                marginLeft: 10,
+                marginRight: 10,
+              }}
             />
-          </View>
-        )}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-      />
-      <ScrollView contentContainerStyle={styles.menuContainer}>
-        <MenuCard />
-      </ScrollView>
-    </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+      </View>
+    </ScrollView>
   );
 }
 
 function CartScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Cart Screen</Text>
-    </View>
-  );
+  return <CartPage />;
 }
 
 function OffersScreen() {
@@ -108,18 +142,33 @@ function OrdersScreen() {
 }
 
 function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile Screen</Text>
-    </View>
-  );
+  return <Profiles />;
 }
 
-//sign up...........
+// Sign up screen
 function Signup({ navigation }) {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [signupUsername, setSignupUsername] = useState('');
+
+  const handleSignup = async () => {
+    if (signupEmail && signupPassword && signupUsername) {
+      try {
+        const user = {
+          email: signupEmail,
+          password: signupPassword,
+          username: signupUsername,
+        };
+        await AsyncStorage.setItem('user', JSON.stringify(user));
+        Alert.alert('Success', 'User registered successfully!');
+        navigation.navigate('Signin');
+      } catch (error) {
+        Alert.alert('Error', 'Something went wrong!');
+      }
+    } else {
+      Alert.alert('Error', 'All fields are required!');
+    }
+  };
 
   return (
     <View style={styles.containers}>
@@ -152,7 +201,7 @@ function Signup({ navigation }) {
           <Button
             title="Sign Up"
             color="#482E1D"
-            onPress={() => navigation.navigate('Signin')}
+            onPress={handleSignup}
           />
         </View>
       </View>
@@ -160,10 +209,35 @@ function Signup({ navigation }) {
   );
 }
 
-//sign in ............
+// Sign in screen
 function Signin({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSignin = async () => {
+    if (email && password) {
+      try {
+        const user = await AsyncStorage.getItem('user');
+        if (user) {
+          const userData = JSON.parse(user);
+          if (
+            userData.email === email &&
+            userData.password === password
+          ) {
+            navigation.replace('Main');
+          } else {
+            Alert.alert('Error', 'Invalid email or password!');
+          }
+        } else {
+          Alert.alert('Error', 'User not found!');
+        }
+      } catch (error) {
+        Alert.alert('Error', 'Something went wrong!');
+      }
+    } else {
+      Alert.alert('Error', 'All fields are required!');
+    }
+  };
 
   return (
     <View style={styles.containers}>
@@ -188,7 +262,7 @@ function Signin({ navigation }) {
           <Button
             title="Sign In"
             color="#482E1D"
-            onPress={() => navigation.replace('Main')}
+            onPress={handleSignin}
           />
         </View>
       </View>
@@ -199,7 +273,7 @@ function Signin({ navigation }) {
   );
 }
 
-//material bottom bakchodiii......
+// Material bottom tab navigator
 const Tab = createMaterialBottomTabNavigator();
 
 function MainTabs() {
@@ -215,7 +289,6 @@ function MainTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Offers"
         component={OffersScreen}
@@ -240,7 +313,6 @@ function MainTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Cart"
         component={CartScreen}
@@ -265,7 +337,7 @@ function MainTabs() {
   );
 }
 
-//drawer part......
+// Drawer navigator
 const Drawer = createDrawerNavigator();
 
 function MainDrawer() {
@@ -281,13 +353,9 @@ function MainDrawer() {
         headerTintColor: '#F0DAAE',
         drawerActiveTintColor: '#CC7952',
         drawerInactiveTintColor: 'black',
-      }}>
+      }}
+    >
       <Drawer.Screen name="Home" component={MainTabs} />
-      <Drawer.Screen
-        name="Login"
-        component={Signin}
-        options={{ headerShown: false }}
-      />
       <Drawer.Screen name="Saved Orders" component={OrdersScreen} />
       <Drawer.Screen name="Offers" component={OffersScreen} />
       <Drawer.Screen
@@ -301,7 +369,7 @@ function MainDrawer() {
   );
 }
 
-//stack for login signup and main page............
+// Stack navigator for authentication and main app
 const AuthStack = createStackNavigator();
 
 function AuthStackNavigator() {
@@ -314,25 +382,27 @@ function AuthStackNavigator() {
   );
 }
 
-//main app..............
+// Main app
 export default function App() {
   return (
     <CategoryProvider>
-      <PaperProvider>
-        <NavigationContainer>
-          <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-            <AuthStack.Screen name="Auth" component={AuthStackNavigator} />
-            <AuthStack.Screen name="Main" component={MainDrawer} />
-          </AuthStack.Navigator>
-        </NavigationContainer>
-      </PaperProvider>
+      <CartProvider>
+        <PaperProvider>
+          <NavigationContainer>
+            <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+              <AuthStack.Screen name="Auth" component={AuthStackNavigator} />
+              <AuthStack.Screen name="Main" component={MainDrawer} />
+            </AuthStack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
+      </CartProvider>
     </CategoryProvider>
   );
 }
 
-//styles
+// Styles
 const styles = StyleSheet.create({
-  //main page css
+  //main page
   container: {
     flex: 1,
     backgroundColor: '#3C2712',
@@ -353,7 +423,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   hero: {
-    backgroundColor: '#3c2712',
+    backgroundColor: '#3C2712',
     margin: 12,
     borderRadius: 16,
     padding: 16,
@@ -386,7 +456,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#482E1D',
   },
-  //main app button
+  // main app button
   button: {
     backgroundColor: '#A3966A',
     paddingVertical: 12,
@@ -400,14 +470,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#fff',
   },
-  //login signup container
+  // login signup container
   containers: {
     flex: 1,
     justifyContent: 'center',
     padding: 16,
     backgroundColor: '#F0DAAE',
   },
-  //login signup css
+  // login signup styles
   title: {
     fontSize: 40,
     color: '#895D2B',
@@ -443,5 +513,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 20,
     textAlign: 'center',
+  },
+  menuContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 10,
   },
 });
