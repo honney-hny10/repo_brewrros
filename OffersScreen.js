@@ -7,8 +7,10 @@ const ITEM_SIZE = windowHeight * 0.7;
 const data = [
   { image: require('./memo3.png') },
   { image: require('./memo2.png') },
+  { image: require('./memo5.jpg')},
   { image: require('./memo1.png') },
   { image: require('./memo.png') },
+
 ];
 
 const OffersScreen = () => {
