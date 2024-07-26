@@ -29,7 +29,7 @@ import { CartProvider } from './CartPage';
 import { CategoryProvider } from './CategoryContext';
 import memo4 from './memo4.png';
 
-// Getting started screen
+//getting started
 function GettingStarted({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
@@ -60,7 +60,6 @@ function GettingStarted({ navigation }) {
   );
 }
 
-// Home screen
 function HomeScreen({ navigation }) {
   const images = [
     'https://wallpaperaccess.com/full/1320593.jpg',
@@ -91,35 +90,35 @@ function HomeScreen({ navigation }) {
           <MenuCard />
         </ScrollView>
         <View>
-        <Text
-          style={{
-            fontSize: 24,
-            color: '#895D2B',
-            fontWeight: 'bold',
-            marginHorizontal: 7,
-            marginBottom:5,
-            alignSelf: 'center',
-            marginTop: 0,
-          }}>
-          {' '}
-          BARISTA BRINGS YOU:{' '}
-        </Text>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate('Offers')}>
-            <Image
-              source={memo4}
-              style={{
-                width: 370,
-                height: 270,
-                marginBottom:5,
-                paddingTop: 5,
-                marginLeft: 10,
-                marginRight: 10,
-              }}
-            />
-          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 24,
+              color: '#895D2B',
+              fontWeight: 'bold',
+              marginHorizontal: 7,
+              marginBottom: 5,
+              alignSelf: 'center',
+              marginTop: 0,
+            }}>
+            {' '}
+            BARISTA BRINGS YOU:{' '}
+          </Text>
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate('Offers')}>
+              <Image
+                source={memo4}
+                style={{
+                  width: 370,
+                  height: 270,
+                  marginBottom: 5,
+                  paddingTop: 5,
+                  marginLeft: 10,
+                  marginRight: 10,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
       </View>
     </ScrollView>
   );
@@ -145,7 +144,7 @@ function ProfileScreen() {
   return <Profiles />;
 }
 
-// Sign up screen
+//sign up
 function Signup({ navigation }) {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
@@ -198,18 +197,14 @@ function Signup({ navigation }) {
       />
       <View style={styles.buttonContainer}>
         <View style={styles.buttonWrapper}>
-          <Button
-            title="Sign Up"
-            color="#482E1D"
-            onPress={handleSignup}
-          />
+          <Button title="Sign Up" color="#482E1D" onPress={handleSignup} />
         </View>
       </View>
     </View>
   );
 }
 
-// Sign in screen
+//sign in
 function Signin({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -220,10 +215,7 @@ function Signin({ navigation }) {
         const user = await AsyncStorage.getItem('user');
         if (user) {
           const userData = JSON.parse(user);
-          if (
-            userData.email === email &&
-            userData.password === password
-          ) {
+          if (userData.email === email && userData.password === password) {
             navigation.replace('Main');
           } else {
             Alert.alert('Error', 'Invalid email or password!');
@@ -259,11 +251,7 @@ function Signin({ navigation }) {
       />
       <View style={styles.buttonContainer}>
         <View style={styles.buttonWrapper}>
-          <Button
-            title="Sign In"
-            color="#482E1D"
-            onPress={handleSignin}
-          />
+          <Button title="Sign In" color="#482E1D" onPress={handleSignin} />
         </View>
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
@@ -273,7 +261,7 @@ function Signin({ navigation }) {
   );
 }
 
-// Material bottom tab navigator
+//material bottom
 const Tab = createMaterialBottomTabNavigator();
 
 function MainTabs() {
@@ -337,7 +325,7 @@ function MainTabs() {
   );
 }
 
-// Drawer navigator
+//drawer
 const Drawer = createDrawerNavigator();
 
 function MainDrawer() {
@@ -353,8 +341,7 @@ function MainDrawer() {
         headerTintColor: '#F0DAAE',
         drawerActiveTintColor: '#CC7952',
         drawerInactiveTintColor: 'black',
-      }}
-    >
+      }}>
       <Drawer.Screen name="Home" component={MainTabs} />
       <Drawer.Screen name="Saved Orders" component={OrdersScreen} />
       <Drawer.Screen name="Offers" component={OffersScreen} />
@@ -369,7 +356,7 @@ function MainDrawer() {
   );
 }
 
-// Stack navigator for authentication and main app
+//stack for authentication and main app
 const AuthStack = createStackNavigator();
 
 function AuthStackNavigator() {
@@ -382,7 +369,7 @@ function AuthStackNavigator() {
   );
 }
 
-// Main app
+//main app
 export default function App() {
   return (
     <CategoryProvider>
@@ -400,7 +387,7 @@ export default function App() {
   );
 }
 
-// Styles
+//styles
 const styles = StyleSheet.create({
   //main page
   container: {
