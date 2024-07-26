@@ -29,6 +29,32 @@ const cartReducer = (state, action) => {
         cart: state.cart.filter((item) => item.id !== action.payload.id),
       };
     }
+    case 'INCREASE_QUANTITY': {
+      const updatedCart = state.cart.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      return { ...state, cart: updatedCart };
+    }
+    case 'DECREASE_QUANTITY': {
+      const itemIndex = state.cart.findIndex((item) => item.id === action.payload.id);
+      if (itemIndex >= 0) {
+        const item = state.cart[itemIndex];
+        if (item.quantity > 1) {
+          const updatedCart = state.cart.map((item, index) =>
+            index === itemIndex
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          );
+          return { ...state, cart: updatedCart };
+        } else {
+          const updatedCart = state.cart.filter((item) => item.id !== action.payload.id);
+          return { ...state, cart: updatedCart };
+        }
+      }
+      return state;
+    }
     case 'CLEAR_CART': {
       return {
         ...state,
@@ -53,12 +79,20 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: { id } });
   };
 
+  const increaseQuantity = (id) => {
+    dispatch({ type: 'INCREASE_QUANTITY', payload: { id } });
+  };
+
+  const decreaseQuantity = (id) => {
+    dispatch({ type: 'DECREASE_QUANTITY', payload: { id } });
+  };
+
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
   };
 
   return (
-    <CartContext.Provider value={{ cart: state.cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart: state.cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   );
@@ -67,7 +101,7 @@ export const CartProvider = ({ children }) => {
 export const useCart = () => useContext(CartContext);
 
 const CartPage = () => {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = useCart();
   const [showAlert, setShowAlert] = useState(false);
 
   const renderCartItem = ({ item }) => (
@@ -77,6 +111,20 @@ const CartPage = () => {
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
         <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
+        <View style={styles.quantityButtons}>
+          <TouchableOpacity
+            style={styles.quantityButton}
+            onPress={() => decreaseQuantity(item.id)}
+          >
+            <Text style={styles.quantityButtonText}>-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.quantityButton}
+            onPress={() => increaseQuantity(item.id)}
+          >
+            <Text style={styles.quantityButtonText}>+</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => removeFromCart(item.id)}
@@ -183,6 +231,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#777',
     marginBottom: 8,
+  },
+  quantityButtons: {
+    flexDirection: 'row',
+    marginBottom: 8,
+  },
+  quantityButton: {
+    backgroundColor: '#A3966A',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginHorizontal: 4,
+  },
+  quantityButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'center',
   },
   removeButton: {
     backgroundColor: '#A3966A',
