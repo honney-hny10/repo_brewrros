@@ -70,7 +70,7 @@ const MenuCard = () => {
 
           <TouchableOpacity 
             style={styles.ordermenuItem}
-            onPress={() => handlePress('bling')}
+            onPress={() => handlePress('ReadyBling')}
           >
             <Image
               style={styles.orderimage}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   ordermenuItemsContainer: {
-    marginBottom: 260,
+    marginBottom: 20,
     flexDirection: 'row',
   },
   ordermenuItem: {
