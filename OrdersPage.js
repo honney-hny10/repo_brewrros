@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useCategory } from './CategoryContext';
 import { useNavigation } from '@react-navigation/native';
-import { useCart } from './CartPage'; // Import the useCart hook
+import { useCart } from './CartPage';
 
 const ColdbrewData = [
   {
@@ -157,7 +157,7 @@ const ColdbrewData = [
 
 const HotBrewData = [
   {
-    id: 1,
+    id: 11,
     title: 'Classic Americano',
     price: 4.5,
     category: 'hot brew',
@@ -171,7 +171,7 @@ const HotBrewData = [
       'https://www.roastycoffee.com/wp-content/uploads/photo-1514432324607-a09d9b4aefdd-735x1103.jpeg',
   },
   {
-    id: 2,
+    id: 12,
     title: 'Espresso',
     price: 3.0,
     category: 'hot brew',
@@ -184,7 +184,7 @@ const HotBrewData = [
       'https://th.bing.com/th/id/OIP.is0X6uUWy0VQHeSOFIn-GgHaHa?w=202&h=202&c=7&r=0&o=5&dpr=1.3&pid=1.7',
   },
   {
-    id: 3,
+    id: 13,
     title: 'Latte',
     price: 5.0,
     category: 'hot brew',
@@ -197,7 +197,7 @@ const HotBrewData = [
     image: 'https://wallpaperaccess.com/full/5043183.jpg',
   },
   {
-    id: 4,
+    id: 14,
     title: 'Cappuccino',
     price: 4.75,
     category: 'hot brew',
@@ -211,7 +211,7 @@ const HotBrewData = [
       'https://c1.wallpaperflare.com/preview/237/270/473/coffee-latte-art-froth.jpg',
   },
   {
-    id: 5,
+    id: 15,
     title: 'Matcha Hot Brew',
     price: 5.25,
     category: 'hot brew',
@@ -225,7 +225,7 @@ const HotBrewData = [
       'https://cdn.shopify.com/s/files/1/0658/2619/articles/Let_s_Matcha_latte_1024x1024.jpeg?v=1590525790',
   },
   {
-    id: 6,
+    id: 16,
     title: 'Caramel Macchiato',
     price: 5.75,
     category: 'hot brew',
@@ -239,7 +239,7 @@ const HotBrewData = [
       'https://thelittlestcrumb.com/wp-content/uploads/salted-caramel-macchiato-6-768x1152.jpg',
   },
   {
-    id: 7,
+    id: 17,
     title: 'Irish Coffee',
     price: 6.0,
     category: 'hot brew',
@@ -253,7 +253,7 @@ const HotBrewData = [
       'https://boulderlocavore.com/wp-content/uploads/2015/02/irish-coffee-sq.jpg',
   },
   {
-    id: 8,
+    id: 18,
     title: 'Affogato',
     price: 6.5,
     category: 'hot brew',
@@ -270,7 +270,7 @@ const HotBrewData = [
 
 const ChurrosData = [
   {
-    id: 1,
+    id: 21,
     title: 'Churritos',
     price: 12,
     category: 'churros',
@@ -284,7 +284,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 2,
+    id: 22,
     title: 'Churro Sundae',
     price: 15,
     category: 'churros',
@@ -298,7 +298,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 3,
+    id: 23,
     title: 'Churro Fiesta',
     price: 16,
     category: 'churros',
@@ -312,7 +312,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 4,
+    id: 24,
     title: 'Maple Delight',
     price: 13,
     category: 'churros',
@@ -326,7 +326,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 5,
+    id: 25,
     title: 'Mississipi peanut butter',
     price: 12.5,
     category: 'churros',
@@ -340,7 +340,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 6,
+    id: 26,
     title: 'Dulche deleche',
     price: 11,
     category: 'churros',
@@ -354,7 +354,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 7,
+    id: 27,
     title: 'Tiramisu Coffee',
     price: 12.77,
     category: 'churros',
@@ -368,7 +368,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 8,
+    id: 28,
     title: 'Tortoise caramel Pecan',
     price: 13,
     category: 'churros',
@@ -382,7 +382,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 9,
+    id: 29,
     title: ' Cinnamon Sugar',
     price: 13.2,
     category: 'churros',
@@ -396,7 +396,7 @@ const ChurrosData = [
     },
   },
   {
-    id: 10,
+    id: 30,
     title: 'Ultimate Mix',
     price: 14,
     category: 'Churros',
@@ -413,7 +413,7 @@ const ChurrosData = [
 
 const CombosData = [
   {
-    id: 1,
+    id: 31,
     title: 'Classic Churros with Coffee',
     price: 5.99,
     discounted: 4.79,
@@ -428,7 +428,7 @@ const CombosData = [
     },
   },
   {
-    id: 2,
+    id: 32,
     title: 'Chocolate Dipped Churros and Espresso',
     price: 7.49,
     discounted: 5.99,
@@ -443,7 +443,7 @@ const CombosData = [
     },
   },
   {
-    id: 3,
+    id: 33,
     title: 'Churros with Mocha Coffee',
     price: 7.99,
     discounted: 6.39,
@@ -457,7 +457,7 @@ const CombosData = [
     },
   },
   {
-    id: 4,
+    id: 34,
     title: 'Churros with Nutella and Americano',
     price: 7.99,
     discounted: 6.39,
@@ -471,7 +471,7 @@ const CombosData = [
     },
   },
   {
-    id: 5,
+    id: 35,
     title: 'Churros with Caramel Sauce and Cappuccino',
     price: 8.49,
     discounted: 6.79,
@@ -485,7 +485,7 @@ const CombosData = [
     },
   },
   {
-    id: 6,
+    id: 36,
     title: 'Mini Churros and Flat White',
     price: 6.49,
     discounted: 5.19,
@@ -499,7 +499,7 @@ const CombosData = [
     },
   },
   {
-    id: 7,
+    id: 37,
     title: 'Churros with Vanilla Glaze and Macchiato',
     price: 7.49,
     discounted: 5.99,
@@ -513,7 +513,7 @@ const CombosData = [
     },
   },
   {
-    id: 8,
+    id: 38,
     title: 'Churros with Chocolate Sauce and Iced Latte',
     price: 8.99,
     discounted: 7.19,
@@ -531,7 +531,7 @@ const CombosData = [
 
 const ReadyBling = [
   {
-    id: 1,
+    id: 41,
     category: 'Single Origin',
     price: 9.99,
     title: 'Ethiopian Yirgacheffe',
@@ -545,7 +545,7 @@ const ReadyBling = [
       'A bright, fruity coffee with floral notes and a smooth finish.',
   },
   {
-    id: 2,
+    id: 42,
     category: 'Blend',
     price: 8.99,
     title: 'Morning Brew Blend',
@@ -559,7 +559,7 @@ const ReadyBling = [
       'A perfect blend to start your day, with a balanced flavor and a hint of chocolate.',
   },
   {
-    id: 3,
+    id: 43,
     category: 'Single Origin',
     price: 10.99,
     title: 'Colombian Supremo',
@@ -573,7 +573,7 @@ const ReadyBling = [
       'A rich, full-bodied coffee with a smooth, nutty flavor and a hint of caramel.',
   },
   {
-    id: 4,
+    id: 44,
     category: 'Decaf',
     price: 7.99,
     title: 'Decaf Delight',
@@ -587,7 +587,7 @@ const ReadyBling = [
       'Enjoy the full flavor of coffee without the caffeine, with a smooth and mild taste.',
   },
   {
-    id: 5,
+    id: 45,
     category: 'Flavored',
     price: 9.49,
     title: 'Vanilla Hazelnut',
@@ -601,7 +601,7 @@ const ReadyBling = [
       'A delightful blend of vanilla and hazelnut flavors, perfect for a cozy afternoon.',
   },
   {
-    id: 6,
+    id: 46,
     category: 'Blend',
     price: 8.49,
     title: 'Evening Relax Blend',
@@ -615,7 +615,7 @@ const ReadyBling = [
       'A soothing blend to unwind with, featuring a smooth and mellow taste.',
   },
   {
-    id: 7,
+    id: 47,
     category: 'Single Origin',
     price: 11.99,
     title: 'Sumatra Mandheling',
@@ -629,7 +629,7 @@ const ReadyBling = [
       'A bold and earthy coffee with a complex flavor profile and a deep, rich aroma.',
   },
   {
-    id: 8,
+    id: 48,
     category: 'Flavored',
     price: 9.99,
     title: 'Chocolate Mocha',
@@ -646,7 +646,7 @@ const ReadyBling = [
 
 const ProductCard = ({ product }) => {
   const navigation = useNavigation();
-  const { addToCart } = useCart(); // Get the addToCart function from the Cart context
+  const { addToCart } = useCart(); 
 
   return (
     <View style={styles.card}>
@@ -661,7 +661,7 @@ const ProductCard = ({ product }) => {
         <TouchableOpacity 
           style={styles.addButton} 
           onPress={() => {
-            addToCart(product); // Add the product to the cart
+            addToCart(product);
           }}
         >
           <Text style={styles.addButtonText}>Add +</Text>
@@ -710,7 +710,7 @@ const OrdersPage = () => {
         data={getData()}
         renderItem={renderProductCard}
         keyExtractor={(item) => item.id.toString()}
-        numColumns={2} // Display cards in two columns
+        numColumns={2}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.sectionContainer}
       />
@@ -727,7 +727,7 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     justifyContent: 'space-between',
-    marginBottom: 16, // Ensure spacing between rows
+    marginBottom: 16,
   },
   sectionContainer: {
     paddingBottom: 16,
@@ -737,24 +737,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 16,
     textAlign: 'center',
-    color: '#333', // Ensure title color contrasts with background
+    color: '#333',
   },
   card: {
     flex: 1,
     backgroundColor: '#fffcf7',
     padding: 16,
-    margin: 8, // Margin around each card
+    margin: 8,
     borderRadius: 8,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     alignItems: 'center',
-    width: '100%', // Full width of the column
+    width: '100%',
   },
   image: {
     width: '100%',
-    height: 150, // Adjust height as needed
+    height: 150,
     borderRadius: 8,
   },
   cardContent: {
